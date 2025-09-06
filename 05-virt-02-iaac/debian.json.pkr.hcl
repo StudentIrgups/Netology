@@ -17,7 +17,7 @@ build {
   provisioner "shell" {
     inline = [
 	"curl -fsSl https://get.docker.com -o get-docker.sh",
-	"sudo sh ./get-docker.sh --dry-run",
+	"sudo sh ./get-docker.sh",
 	"sudo apt-get update -y",
 	"sudo apt-get install -y htop",	
 	"sudo apt-get install -y tmux"
