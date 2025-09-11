@@ -2,12 +2,12 @@
 * 2. После изменения конфигурации nginx, мы сменили порт на 81 с 80, порт 8080 на хосте перестал работать, так как хост изначально был привязан к 80 порту.
 
 * 3. Решение не обязательного задания:
-	** заходим в /var/lib/docker/containers/<id container-а>
-	** в файлах hostconfig.json и config.v2.json меняем "80/tcp" на "81/tcp" с помощью команд:
-		*** sed -i "s/80\/tcp/81\/tcp/g" config.v2.json
-		*** ed -i "s/80\/tcp/81\/tcp/g" hostconfig.json
-	** выключаем docker 
-		*** systemctl stop docker
-	** включаем обратно 
-		*** systemctl start docker
-	** запускаем контейнер. Будет 81 порт.
+	* 3.1 заходим в /var/lib/docker/containers/<id container-а>
+	* 3.2 в файлах hostconfig.json и config.v2.json меняем "80/tcp" на "81/tcp" с помощью команд:
+		* 3.2.1 sed -i "s/80\/tcp/81\/tcp/g" config.v2.json
+		* 3.2.2 ed -i "s/80\/tcp/81\/tcp/g" hostconfig.json
+	* 3.3 выключаем docker 
+		* 3.3.1 systemctl stop docker
+	* 3.4 включаем обратно 
+		* 3.4.1 systemctl start docker
+	* 3.5 запускаем контейнер. Будет 81 порт.
