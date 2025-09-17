@@ -1,0 +1,24 @@
+Скачать parcker https://hashicorp-releases.yandexcloud.net/packer/1.9.5/
+Распаковать zip, bin файл положить в /usr/bin
+
+Создать файл config.pkr.hcl с содержимым:
+
+packer {
+  required_plugins {
+    yandex = {
+      version = ">= 1.1.2"
+      source  = "github.com/hashicorp/yandex"
+    }
+  }
+}
+
+Сделать инициализацию: parcker init config.pkr.hcl 
+Скачать yandexcloud cli: curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
+Перезапуск командной оболочки exec -l $SHELL
+Инициализация yc init
+Проверьте настройки вашего профиля CLI: yc config list
+Образы: yc compute image list
+Создать сеть: yc vpc network create --name net --labels my-label=netology --description "NETMY"
+Создать subnet: yc vpc subnet create --name my-subnet-a --zone ru-central1-a --range 10.1.2.0/24 --network-name net --description "SUBNET"
+
+Собрать образ parcker build config.pkr.hcl.

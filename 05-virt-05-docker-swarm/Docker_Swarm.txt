@@ -1,0 +1,10 @@
+Создать три ВМ на YC, два воркера, один менеджер.
+Зайти на менеджер на ssh взять ip (ip addr show) и инициализировать swarm: docker swarm init --advertise-addr <ip ВМ>
+
+После выполнения этой команды, появится команда вроде:
+docker swarm join --token SWMTKN-1-407l4txa8mwnq6uaact3jwm7gbrz1qxpp0ybxbne7ke867jva4-289dgqu4eibtuwnmwyswzxnsa 10.1.2.18:2377
+Её нужно скопировать и зайти на оба воркера и выполнить.
+
+Далее на менеджере можно проверить ноды: docker node ls
+Запуск сервиса на кластере sudo docker service create -p 80:80 --name web --replicas 2 --replicas-max-per-node 1 alexbeznosov/custom-nginx:latest
+docker service ls
