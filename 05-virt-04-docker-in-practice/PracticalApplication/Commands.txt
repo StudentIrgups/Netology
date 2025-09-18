@@ -1,0 +1,143 @@
+lsns
+ps aux (PID 1 = init process)
+docker rm -f $(docker ps -a -q) Удалить все запущенные контейнеры
+docker run -d --name ns_nginx --cpus=".1" --memory="32m" nginx
+pid=$(ps aux | grep "[n]ginx -g" | awk '{print $2}') && echo $pid
+sudo nsenter --target $pid --uts
+hostname
+hostname 555
+
+docker exec -it ns_nginx bash -c "cat /sys/fs/cgroup/cpu.max&&cat /sys/fs/cgroup/memory.max"
+echo $((33554432/1024/1024))
+
+Использование Containerd:
+	ctr images pull docker.io/library/nginx:latest
+	ctr run --detach --net-host docker.io/library/nginx:latest test-nginx
+	ctr container lsns
+	ctr task lsns
+	ctr taks kill test-nginx
+	ctr container remove test-nginx
+
+mkdir test_runc && cd test_runc
+runc spec && lsns
+mkdir rootfs
+apt-get -y install skopeo
+skopeo copy docker://docker.io/library/nginx:latest oci:nginx:latest
+
+apt install umoci
+umoci unpack --image nginx:latest bundle
+
+cp -r bundle/rootfs config.json ./nginx && cd nginx
+sed -i 's/terminal": true/terminal": false/' config.json
+sed -i 's/"sh"/"sleep","60"/' config.json
+runc run nginx --detach
+
+runc list
+
+runc kill nginx && runc delete nginx
+
+sudo runc --root /run/docker/runtime-runc/moby/ list
+
+pstree
+
+docker run -d nginx
+ps aux | grep shim
+
+pstree -lpTs
+
+bad build order
+Пример Dockerfile с python приложением:
+	FROM python:3.9-slim
+	WORKDIR /app
+	COPY requirements.txt main.py ./
+	RUN pip install -r requirements.txt
+	CMD ["python", "main.py"]
+	
+docker build -t python_bad_order . #--no-cache
+docker run -d -p 5000:5000 --name python_bad_order python_bad_order && docker ps
+curl http://localhost:5000 && docker rm -f python_bad_order
+
+good build order
+Пример Dockerfile с python приложением:
+	FROM python:3.9-slim
+	WORKDIR /app
+	COPY requirements.txt  ./
+	RUN pip install -r requirements.txt
+	COPY main.py ./
+	CMD ["python", "main.py"]
+	
+docker build -t python_good_order . #--no-cache
+docker run -d -p 5000:5000 --name python_good_order python_good_order && docker ps
+curl http://localhost:5000 && docker rm -f python_good_order
+
+docker inspect python_good_order | jq
+docker history python_good_order
+
+hadolint
+docker run --rm -i hadolint/hadolint < Dockerfile
+
+docker history
+	FROM python:3.9-slim
+	WORKDIR /app
+	#to download dependencies from closed repos
+	ARG ARG_PASSWORD_DEFAULT=P@55w0rD
+	#to download dependencies from closed repos
+	ARG ARG_PASSWORD_CLI	
+	ENV PASSWORD=${ARG_PASSWORD_CLI}
+	
+docker build --build-arg ARG_PASSWORD_CLI=qwerty -t test_python_history . --no-cache
+docker history test_python_history
+docker rm -f test_python_history
+
+Mount secrets
+docker build --secret id=aws,src=$HOME/.aws/credentials .
+
+Dockerfile:
+	RUN apt install aws-cli
+	RUN --mount=type=secret,id=aws,target=/root/.aws/credentials aws s3 cp
+	s3://bucket-name/db.sql db.sql
+	-------------
+	eval $(ssh-agent)&&ssh-add
+	docker build --ssh default=$SSH_AUTH_SOCK .
+Dockerfile:
+	RUN mkdir -p -m 0700 ~/.ssh&&ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
+	RUN --mount=type=ssh \
+	  ssh -q -T git@gitlab.com 2>&1|tee /hello
+	---------------
+	export MYSECRET=qwerty
+	docker build --secret id=env_sec,env=MYSECRET .
+Dockerfile:
+	RUN --mount=type=secret,id=env_sec < command > $(cat /run/secrets/MYSECRET)
+	
+	
+Dive:
+docker run -ti --rm -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive text_extra
+
+Multistage:
+	FROM python:3.9-slim as builder
+	WORKDIR /app
+	
+	RUN apt-get update && \
+		apt-get install -y --no-install-recommends gcc
+		
+	RUN python -m venv /app/venv
+	ENV PATH="/app/venv/bin:$PATH"
+	
+	COPY requirements.txt ./
+	ARG ARG_PASSWORD=P@55w0rD
+	RUN --mount=type=cache,target=~/.cache/pip pip install -r requirements.txt
+	
+	FROM python:3.9-alpine AS worker
+	WORKDIR /app
+	
+	RUN addgroup --system python && \
+		adduser --system --disabled-password --ingroup python python && chown python:python /app
+	USER python
+	
+	COPY --chown=python:python --from=builder /app/venv ./venv
+	COPY --chown=python:python . .
+	
+	ENV PATH="/app/venv/bin:$PATH"
+	CMD ["python", "main.py"]
+	
+	
