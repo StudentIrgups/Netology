@@ -1,0 +1,27 @@
+Dockerfile1:
+	FROM ubuntu
+	RUN apt update && apt install -y iputils-ping psmisc
+	
+docker build -f Dockerfile1 -t test_entry_cmd_0 .
+docker run --rm --name test_entry_cmd_0 test_entry_cmd_0
+docker history test_entry_cmd_0
+
+Для запуска без CMD:
+	docker run --rm --name test_entry_cmd_0 test_entry_cmd_0 /bin/ping ya.ru
+
+Dockerfile2:
+	FROM ubuntu
+	RUN apt update && apt install -y iputils-ping psmisc
+	ENTRYPOINT ["/bin/ping","ya.ru"]
+	
+	docker run --rm --name test_entry_cmd_0 test_entry_cmd_0 1.1.1.1
+	
+Dockerfile3:
+	FROM ubuntu
+	RUN apt update && apt install -y iputils-ping psmisc
+	CMD ["/bin/ping","ya.ru"]	
+	
+
+docker run --rm --name test_entry_cmd_1 --entrypoint "ls" test_entry_cmd_1 "ya.ru"	
+
+docker stats
