@@ -1,0 +1,10 @@
+.git
+schema.pdf
+README.md
+proxy.yaml
+nginx/
+LICENSE
+haproxy/
+Dockerfile
+Dockerfile.python
+Dockerfile1.python
