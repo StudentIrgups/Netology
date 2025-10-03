@@ -7,7 +7,7 @@
 		
 
 ## YC concole:
-![alt text] https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/02/1.png?raw=true
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/02/1.png?raw=true)
 	
 ## curl ifconfig.me
 ![alt text] https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/02/2.png?raw=true
