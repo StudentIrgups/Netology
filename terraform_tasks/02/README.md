@@ -14,3 +14,10 @@
 ![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/02/2.png?raw=true)
 
 # Задание 2
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/02/3.png?raw=true)
+
+# Задание 3
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/02/4.png?raw=true)
+
+# Задание 4
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/02/5.png?raw=true)
