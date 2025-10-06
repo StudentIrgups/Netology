@@ -1,16 +1,17 @@
-data "yandex_compute_image" "ubuntu" {
-  family = var.vm_ubuntu_version
+resource "yandex_compute_disk" "disk" {
+    count =  3 
+    name  = "disk${count.index}"
+    size  = 1    
 }
 
-resource "yandex_compute_instance" "web" {
-  depends_on = [yandex_compute_instance.databases]
-  count       = 2
-  name        = "web${count.index + 1}"
+resource "yandex_compute_instance" "storage" {  
+  name     = "storage"
+
   platform_id = var.vm_platform_id
   resources { 
-    cores         = var.vms_resources["web"].cores
-    memory        = var.vms_resources["web"].memory
-    core_fraction = var.vms_resources["web"].core_fraction
+    cores         = 2
+    memory        = 2
+    core_fraction = 20
   }
   boot_disk {
     initialize_params {
@@ -30,5 +31,11 @@ resource "yandex_compute_instance" "web" {
     serial-port-enable = local.serial-port-enable
     ssh-keys           = "${local.ssh-keys}"
   }
-  
+
+  dynamic "secondary_disk" {
+    for_each = yandex_compute_disk.disk[*]
+    content {
+      disk_id = lookup(secondary_disk.value, "id", null)
+    }
+  }
 }
