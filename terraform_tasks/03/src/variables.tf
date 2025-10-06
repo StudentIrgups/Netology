@@ -33,12 +33,7 @@ variable "vm_platform_id" {
   default     = "standard-v3"
   description = "Platform id"
 }
-###ssh vars
-variable "vms_ssh_root_key" {
-  type        = string
-  description = "ssh-keygen -t ed25519"
-  sensitive   =  true
-}
+
 variable "vms_resources" {
   type = map(object({
     cores         = number
@@ -53,3 +48,22 @@ variable "vms_resources" {
     },
   }
 }
+
+variable "each_vm" {
+  type = map(object({  vm_name=string, cpu=number, ram=number, disk_volume=number }))
+  default = {
+    "first" = {
+      vm_name     = "main",
+      cpu         = 2,
+      ram         = 1,
+      disk_volume = 1
+    }, 
+    "second" = {
+      vm_name     = "replica",
+      cpu         = 2,
+      ram         = 2,
+      disk_volume = 1
+    } 
+  }
+}
+
