@@ -31,15 +31,15 @@
 
 # Задание 3
 
-![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/03/4.png?raw=true)
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/03/11.png?raw=true)
 
 # Задание 4
 
-![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/03/5.png?raw=true)
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/03/12.png?raw=true)
 
 # Задание 5
 
-![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/03/6.png?raw=true)
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/03/13.png?raw=true)
 
 # Задание 6
 
