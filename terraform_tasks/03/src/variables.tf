@@ -67,4 +67,3 @@ variable "each_vm" {
   }
 }
 
-
