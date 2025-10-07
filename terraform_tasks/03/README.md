@@ -37,6 +37,8 @@
 
 ![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/03/5.png?raw=true)
 
+https://github.com/StudentIrgups/Netology/commit/371bc2534035552ec5ff3a9ea66b183212bcfa11
+
 # Задание 5
 
 ![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/03/6.png?raw=true)
