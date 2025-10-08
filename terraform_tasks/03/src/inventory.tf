@@ -9,16 +9,19 @@ resource "local_file" "hosts_templatefile" {
 
 resource "local_file" "hosts_for" {
   content =  <<-EOT
-  %{if length(yandex_compute_instance.web) > 0}
+  %{~ if length(yandex_compute_instance.web) > 0 ~}
   [webservers]
-  %{for i in yandex_compute_instance.web}
-  %{if length(yandex_compute_instance.databases) > 0}
-  ${i["name"]}   ansible_host=${i["network_interface"][0]["ip_address"]}
-  %{else}
-  ${i["name"]}   ansible_host=${i["network_interface"][0]["nat_ip_address"]}
-  %{endif}
-  %{endfor}
-  %{endif}
+  %{~ for i in yandex_compute_instance.web ~}
+    %{~ for k, v in i["network_interface"][0] ~}
+      %{~ if k == "ip_address" && i["network_interface"][0]["nat"] == false ~}
+        ${i["name"]}  ansible_host=${v}
+      %{~ endif ~}
+      %{~ if k == "nat_ip_address" && i["network_interface"][0]["nat"] == true ~}
+        ${i["name"]}  ansible_host=${v}
+      %{~ endif ~}
+    %{~ endfor ~}
+  %{~ endfor ~}
+  %{~ endif ~}
   %{if length(yandex_compute_instance.databases) > 0}
   [databases]
   %{for i in yandex_compute_instance.databases }
