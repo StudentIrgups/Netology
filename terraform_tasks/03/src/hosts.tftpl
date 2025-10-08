@@ -1,8 +1,14 @@
 [webservers]
 
 %{~ for i in webservers ~}
-
-${i["name"]}   ansible_host=${i["network_interface"][0]["nat_ip_address"]} fqdn=${i["fqdn"]}
+    %{~ for k, v in i["network_interface"][0] ~}
+        %{~ if k == "ip_address" && i["network_interface"][0]["nat"] == false ~}
+            ${i["name"]}  ansible_host=${v} fqdn=${i["fqdn"]}
+        %{~ endif ~}
+        %{~ if k == "nat_ip_address" && i["network_interface"][0]["nat"] == true ~}
+            ${i["name"]}  ansible_host=${v} fqdn=${i["fqdn"]}
+        %{~ endif ~}
+    %{~ endfor ~}
 %{~ endfor ~}
 
 [databases]
