@@ -45,8 +45,20 @@ https://github.com/StudentIrgups/Netology/commit/371bc2534035552ec5ff3a9ea66b183
 
 # Задание 6
 
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/03/14.png?raw=true)
+
+https://github.com/StudentIrgups/Netology/commit/7c8fe3a9a19e997f4b9c720131c7ee7b7fbc9f45
+
 # Задание 7
 
 # Задание 8
 
+Получение platform_id из массива по индексу необходимо делать без пробела: platform_id=${i["platform_id"]}
+
 # Задание 9
+
+** 9.1
+	[for x in range(99) : "rc${x+1}" ]
+	
+** 9.2 
+	[for x in range(99) : "rc${x+1}" if x % 10 != 6 && x % 10 != 7 && x % 10 != 8 && x % 10 != 9 || x == 18  ]
