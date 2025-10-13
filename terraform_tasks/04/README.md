@@ -6,7 +6,7 @@
 
 <details>
 	<summary>terraform console -> module.marketing-vm</summary>
-~~~	code
+~~~	console
 module.marketing-vm
 {
   "all" = [
