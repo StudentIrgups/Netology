@@ -6,6 +6,7 @@
 
 <details>
 	<summary>terraform console -> module.marketing-vm</summary>
+```console	
 module.marketing-vm
 {
   "all" = [
@@ -177,6 +178,7 @@ module.marketing-vm
     ]),
   ]
 }
+```
 </details>
 # Задание 2
 ** 2.1
