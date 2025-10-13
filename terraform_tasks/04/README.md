@@ -186,29 +186,24 @@ module.marketing-vm
 # Задание 2
 ** 2.1
 
-
-
 ![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/3.png?raw=true)
-
-![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/4.png?raw=true)
 
 ** 2.2
 
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/4.png?raw=true)
+
+** 2.3
+
 ![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/5.png?raw=true)
-
-![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/6.png?raw=true)
-
-![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/7.png?raw=true)
 
 ** 2.4
 
-![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/8.png?raw=true)
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/6.png?raw=true)
 
 ** 2.5
 
-![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/9.png?raw=true)
+https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/src/terraform-docs.md
 
-![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/10.png?raw=true)
 
 # Задание 3
 
