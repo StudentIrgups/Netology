@@ -206,8 +206,27 @@ https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/src/terra
 
 
 # Задание 3
+** 3.1
+
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/7.png?raw=true)
+
+** 3.2
+
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/8.png?raw=true)
+
+** 3.3
+
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/9.png?raw=true)
+
+** 3.4
+
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/10.png?raw=true)
 
 ![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/11.png?raw=true)
+
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/12.png?raw=true)
+
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/13.png?raw=true)
 
 # Задание 4
 
