@@ -1,12 +1,16 @@
 # Задание 1
+``` sudo nginx -t ```
 
 ![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/1.png?raw=true)
 
+Yandex cloud console:
+
 ![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/2.png?raw=true)
 
-<details>
-	<summary>terraform console -> module.marketing-vm</summary>
-~~~	console
+
+terraform console:
+```
+
 module.marketing-vm
 {
   "all" = [
@@ -178,8 +182,7 @@ module.marketing-vm
     ]),
   ]
 }
-~~~
-</details>
+```
 # Задание 2
 ** 2.1
 
