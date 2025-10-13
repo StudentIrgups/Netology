@@ -6,18 +6,29 @@
 
 <details>
 	<summary>terraform console -> module.marketing-vm</summary>
-```console	
+	
 module.marketing-vm
+
 {
+
   "all" = [
+  
     {
+	
       "allow_recreate" = tobool(null)
+	  
       "allow_stopping_for_update" = true
+	  
       "boot_disk" = tolist([
+	  
         {
+		
           "auto_delete" = true
+		  
           "device_name" = "fhmc5833isqm64pu1622"
+		  
           "disk_id" = "fhmc5833isqm64pu1622"
+		  
           "initialize_params" = tolist([
             {
               "block_size" = 4096
@@ -178,7 +189,6 @@ module.marketing-vm
     ]),
   ]
 }
-```
 </details>
 # Задание 2
 ** 2.1
