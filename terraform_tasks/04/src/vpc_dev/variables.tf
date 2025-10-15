@@ -9,18 +9,16 @@ variable "folder_id" {
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id"
 }
 
-variable "default_zone" {
-  type        = string
-  description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
-}
-variable "default_cidr" {
-  type        = list(string)
-  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
-}
-
 variable "vpc_name" {
   type        = string
   description = "VPC network&subnet name"
+}
+
+variable "mass_zones" {
+  type = list(object({
+    name = string
+    cidr = string
+  }))
 }
 
 

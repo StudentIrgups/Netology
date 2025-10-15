@@ -2,9 +2,12 @@ module "vpc_dev" {
   source       = "./vpc_dev"
   vpc_name     = var.vpc_name
   cloud_id     = var.cloud_id
-  default_cidr = var.default_cidr
   folder_id    = var.folder_id
-  default_zone = var.default_zone
+  mass_zones   = [
+    { name = "ru-central1-a", cidr = "10.0.1.0/24" },
+    { name = "ru-central1-b", cidr = "10.0.2.0/24" },
+    { name = "ru-central1-d", cidr = "10.0.3.0/24" },
+  ]
 }
 
 module "marketing-vm" {
@@ -12,7 +15,7 @@ module "marketing-vm" {
   env_name       = "stage" 
   network_id     = module.vpc_dev.network_id
   subnet_zones   = ["ru-central1-a"]
-  subnet_ids     = [module.vpc_dev.subnet_id]
+  subnet_ids     = [module.vpc_dev.subnet_id.0.id]
   instance_name  = "webs"
   instance_count = 1
   image_family   = "ubuntu-2004-lts"
@@ -33,7 +36,7 @@ module "analytics-vm" {
   env_name       = "stage"
   network_id     = module.vpc_dev.network_id
   subnet_zones   = ["ru-central1-a"]
-  subnet_ids     = [module.vpc_dev.subnet_id]
+  subnet_ids     = [module.vpc_dev.subnet_id.0.id]
   instance_name  = "web-stage"
   instance_count = 1
   image_family   = "ubuntu-2004-lts"
