@@ -230,30 +230,67 @@ https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/src/terra
 
 # Задание 4
 
-![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/12.png?raw=true)
+Plan:
 
-https://github.com/StudentIrgups/Netology/commit/371bc2534035552ec5ff3a9ea66b183212bcfa11
+```
 
-# Задание 5
++ resource "yandex_vpc_subnet" "develop" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "ru-central1-a"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "10.0.1.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-a"
+    }
 
-![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/13.png?raw=true)
+  # module.vpc_dev.yandex_vpc_subnet.develop["ru-central1-b"] will be created
+  + resource "yandex_vpc_subnet" "develop" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "ru-central1-b"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "10.0.2.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-b"
+    }
 
-# Задание 6
+  # module.vpc_dev.yandex_vpc_subnet.develop["ru-central1-d"] will be created
+  + resource "yandex_vpc_subnet" "develop" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "ru-central1-d"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "10.0.3.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-d"
+    }
+```
 
 ![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/14.png?raw=true)
 
-https://github.com/StudentIrgups/Netology/commit/7c8fe3a9a19e997f4b9c720131c7ee7b7fbc9f45
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/15.png?raw=true)
 
-# Задание 7
+# Задание 5
 
-# Задание 8
 
-Получение platform_id из массива по индексу необходимо делать без пробела: platform_id=${i["platform_id"]}
+# Задание 6
 
-# Задание 9
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/16.png?raw=true)
 
-** 9.1
-	[for x in range(99) : "rc${x+1}" ]
-	
-** 9.2 
-	[for x in range(99) : "rc${x+1}" if x % 10 != 6 && x % 10 != 7 && x % 10 != 8 && x % 10 != 9 || x == 18  ]
+Хранилище создалось, однако ошибка, которую мне не удалось побороть. В процессе гугления стало ясно, 
+что это "косяк" со стороны Yandex.
+
+![Figure 1-1](https://github.com/StudentIrgups/Netology/blob/main/terraform_tasks/04/17.png?raw=true)
