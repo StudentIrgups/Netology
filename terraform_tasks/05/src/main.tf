@@ -11,15 +11,16 @@ module "vpc_dev" {
 }
 
 module "marketing-vm" {
-  source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
+  source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=09144db7f136b793064f1ac593fe2ac6921932f0"
   env_name       = "stage" 
   network_id     = module.vpc_dev.network_id
   subnet_zones   = ["ru-central1-a"]
-  subnet_ids     = [module.vpc_dev.subnet_id.0.id]
+  subnet_ids     = [module.vpc_dev.subnet_id[0].id]
   instance_name  = "webs"
   instance_count = 1
   image_family   = "ubuntu-2004-lts"
-  public_ip      = true
+  public_ip      = false
+  security_group_ids = [yandex_vpc_security_group.example.id]
 
   labels = { 
     project = "marketing"
@@ -32,15 +33,16 @@ module "marketing-vm" {
 }
 
 module "analytics-vm" {
-  source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
-  env_name       = "stage"
-  network_id     = module.vpc_dev.network_id
-  subnet_zones   = ["ru-central1-a"]
-  subnet_ids     = [module.vpc_dev.subnet_id.0.id]
-  instance_name  = "web-stage"
-  instance_count = 1
-  image_family   = "ubuntu-2004-lts"
-  public_ip      = true
+  source             = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=09144db7f136b793064f1ac593fe2ac6921932f0"
+  env_name           = "stage"
+  network_id         = module.vpc_dev.network_id
+  subnet_zones       = ["ru-central1-a"]
+  subnet_ids         = [module.vpc_dev.subnet_id[0].id]
+  instance_name      = "web-stage"
+  instance_count     = 1
+  image_family       = "ubuntu-2004-lts"
+  public_ip          = false
+  security_group_ids = [yandex_vpc_security_group.example.id]
 
   labels = { 
     project = "analytics"
@@ -54,7 +56,7 @@ module "analytics-vm" {
 
 data "template_file" "cloudinit" {
   template = file("./cloud-init.yml")
-
+ 
   vars = {
     ssh_public_key = file("~/.ssh/ssh-key-1756817743452.pub")    
   }

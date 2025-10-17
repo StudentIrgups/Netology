@@ -21,13 +21,4 @@ variable "vpc_name" {
   description = "VPC network&subnet name"
 }
 
-variable "access_key" {
-  type        = string
-}
-
-variable "secret_key" {
-  type        = string
-}
-
-
 

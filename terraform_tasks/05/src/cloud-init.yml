@@ -1,4 +1,5 @@
 #cloud-config
+vertion: 1.0
 users:
   - name: ubuntu
     groups: sudo
