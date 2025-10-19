@@ -17,7 +17,7 @@ module "marketing-vm" {
   subnet_zones   = ["ru-central1-a"]
   subnet_ids     = [module.vpc_dev.subnet_id[0].id]
   instance_name  = "webs"
-  instance_count = 1
+  instance_count = 0
   image_family   = "ubuntu-2004-lts"
   public_ip      = false
   security_group_ids = [yandex_vpc_security_group.example.id]
@@ -39,8 +39,8 @@ module "analytics-vm" {
   subnet_zones       = ["ru-central1-a"]
   subnet_ids         = [module.vpc_dev.subnet_id[0].id]
   instance_name      = "web-stage"
-  instance_count     = 1
-  image_family       = "ubuntu-2004-lts"
+  instance_count     = 0
+  image_family       = var.ubuntu_version
   public_ip          = false
   security_group_ids = [yandex_vpc_security_group.example.id]
 
