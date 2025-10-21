@@ -1,0 +1,18 @@
+services:
+  web:
+    container_name: web-app
+    # networks: host
+    ports:
+      - "5000:5000"
+    image: ${image}
+    # environment:
+    #   - DB_HOST= db
+    #   - DB_USER=MYSQL_USER
+    #   - DB_PASSWORD=MYSQL_PASSWO
+    #   - DB_NAME=MYSQL_DATABASE
+    # env_file: 
+    #   - .env
+    restart: on-failure
+  
+    
+    

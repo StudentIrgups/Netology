@@ -1,0 +1,101 @@
+#cloud-config
+users:
+  - name: ubuntu
+    shell: /bin/bash
+    groups: [docker]
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]    
+    ssh_authorized_keys:
+      - ${ssh_public_key}
+package_update: true
+package_upgrade: false
+apt:
+  sources:
+    docker.list:
+      source: deb [arch=amd64] https://download.docker.com/linux/ubuntu $RELEASE stable
+      keyid: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+packages:
+  - vim
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - software-properties-common
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-compose-plugin
+write_files:
+  - path: "/usr/local/etc/startup.sh"
+    groups: [docker]
+    permissions: "755"
+    content: |
+      #!/bin/bash
+
+      export REGISTRY_ID=${registry_id}
+      echo ${ya_token} | docker login --username oauth --password-stdin cr.yandex
+
+      apt-get update
+      apt-get install -y nginx
+      service nginx start
+  - path: /etc/sysctl.d/enabled_ipv4_forwarding.conf
+    content: |
+      net.ipv4.conf.all.forwarding=1
+  - path: "/home/ubuntu/.docker/config.json"
+    content: |
+      {
+        "auths": {
+          "cr.yandex": {
+            "auth": ""
+          }
+        }
+      }  
+  - path: "/opt/services/compose.yml"
+    content: |
+      services:
+        web:
+          container_name: web-app
+          network_mode: "host"
+          image: ${image}
+          environment:
+            - DB_HOST=${db_fqdn}
+            - DB_USER=${db_user}
+            - DB_PASSWORD=${db_password}
+            - DB_NAME=${db_dbname}
+          restart: on-failure
+  - path: /etc/systemd/system/webapp.service
+    permissions: 0644
+    owner: root
+    content: |
+      [Unit]
+      Description=Start a simple docker container
+
+      [Service]
+      ExecStart=docker compose -f /opt/services/compose.yml up
+
+      ExecStop=docker compose -f /opt/services/compose.yml stop
+      ExecStopPost=docker compose -f /opt/services/compose.yml down
+  - path: "/etc/nginx/conf.d/default.conf"
+    content: |
+      server {
+        listen 443;
+        server_name _;
+
+        location / {
+          proxy_pass http://127.0.0.1:5000;
+          
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $remote_addr;
+          proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+        }
+      }
+runcmd:
+  - ["/usr/local/etc/startup.sh"]
+  - docker pull cr.yandex/${registry_id}/webapp:latest
+  - systemctl daemon-reload
+  - systemctl start webapp.service
+  - systemctl reload nginx.service
+
+
+
+
